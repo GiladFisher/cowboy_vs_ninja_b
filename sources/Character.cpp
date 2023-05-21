@@ -32,36 +32,45 @@ namespace ariel{
         }
     }
     Cowboy::Cowboy(string name, Point loc) : Character(name, loc){
-        this->bullets = 0;
+        this->bullets = 6;
     }
     void Cowboy::shoot(Character* other){
-        
+        other.hit(10);
     }
     string Cowboy::print() const{
        return ""; 
     }
     bool Cowboy::hasboolets(){
-        return false;
+        return this->bullets > 0;
     }
     void Cowboy::reload(){
-        
+        this->bullets = 6;        
     }
     YoungNinja::YoungNinja(string name, Point loc) : Character(name, loc){
-        this->speed = 0;
+        this->speed = 14;
     }
     void YoungNinja::slash(Character* other){
-        
+        if (this->distance(other) <= 1){
+            other.hit(40);
+        }
     }
     void YoungNinja::move(Character* other){
-        
+        if (this->distance(other) >= this->speed){
+            this->loc.moveTowards(this->loc, other.loc, this->speed);
+        }
+        else{
+            // maybe delete original point
+            this->loc = Point(other.loc.getX(), other.loc.getY());
+        }
     }
     void YoungNinja::print() const{
-        
+        this->Character::print("N");
     }
     OldNinja::OldNinja(string name, Point loc) : Character(name, loc){
         this->speed = 0;
     }
     void OldNinja::slash(Character* other){
+        
         
     }
     void OldNinja::move(Character* other){
