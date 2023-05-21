@@ -24,12 +24,12 @@ namespace ariel{
     double Point::getY() const{
         return this->y_ax;
     }
-    Point Point::moveTowards(Point src, Point dst, double distance){
+    Point Point::moveTowards(Point src, Point dst, double dist){
         Point distance(src.getX() - dst.getX(), src.getY() - dst.getY());
         double norm = sqrt(pow(distance.getX(), 2) + pow(distance.getY(), 2));
         Point direction(distance.getX() / norm, distance.getY() / norm);
-        return Point(src.getX() + direction.getX() * distance,
-                     src.getY() + direction.getY() * distance);
+        return Point(src.getX() + direction.getX() * dist,
+                     src.getY() + direction.getY() * dist);
     }
     
 

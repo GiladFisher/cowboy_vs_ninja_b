@@ -4,7 +4,7 @@
 #include <stdexcept>
 #include <cassert>
 #include "Point.hpp"
-
+#pragma once
 using namespace std;
 namespace ariel{
     class Character{

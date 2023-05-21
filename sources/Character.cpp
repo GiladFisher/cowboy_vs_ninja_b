@@ -6,26 +6,30 @@
 #include "Character.hpp"
 using namespace std;
 namespace ariel{
-    Character::Character(string name, Point loc): name(name), loc(loc){
-        this->health = 0;
+    Character::Character(string name, Point loc, int health): name(name), loc(loc), health(health){
     }
     bool Character::isAlive() const{
-        return false;
+        return this->health > 0;
     }
     double Character::distance(Character* other) const{
-        return 0;
+        return this->loc.distance(other->loc);
     }
     void Character::hit(int dmg){
-        
+        this->health -= dmg;        
     }   
     string Character::getName() const{
-        return "";
+        return this->name;
     }
     Point Character::getLocation() const{
-        return Point(0,0);
+        return this->loc;
     }   
-    void Character::print() const{
-        
+    void Character::print(string kind) const{
+        if (!this->isAlive()){
+            cout << kind << "(" << this->name << ")" << "(" << this->loc.getX << "," << this->loc.getY << ")"<< endl;
+        }
+        else{
+            cout << kind << this->name << this->health << "(" << this->loc.getX << "," << this->loc.getY << ")"<< endl;
+        }
     }
     Cowboy::Cowboy(string name, Point loc) : Character(name, loc){
         this->bullets = 0;
