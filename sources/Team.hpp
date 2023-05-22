@@ -9,39 +9,40 @@ using namespace std;
 
 namespace ariel{
     class Team{// a team of up to 10 characters
-        private:
-            
-        public:
+        protected:
             Character** team;
             Character* leader;
+        public:
+            // Character** team;
+            // Character* leader;
             Team(Character* leader);
             // Team(const Team& other);
+            virtual void add(Character* warrior);
+            virtual void attack(Team* other);
+            virtual int stillAlive() const;
+            virtual void print() const;
+            // ~Team();
+    };
+    class Team2 : public Team{
+        private:
+            // Character** team;
+            // Character* leader;
+        public:
+            Team2(Character* leader);
             void add(Character* warrior);
             void attack(Team* other);
             int stillAlive() const;
             void print() const;
-            // ~Team();
-    };
-    class Team2{
-        private:
-            Character** team;
-            Character* leader;
-        public:
-            Team2(Character* leader);
-            void add(Character* warrior);
-            void attack(Team2* other);
-            int stillAlive() const;
-            void print() const;
             // ~Team2();
     };
-    class SmartTeam{
+    class SmartTeam : public Team{
         private:
-            Character** team;
-            Character* leader;
+            // Character** team;
+            // Character* leader;
         public:
             SmartTeam(Character* leader);
             void add(Character* warrior);
-            void attack(SmartTeam* other);
+            void attack(Team* other);
             int stillAlive() const;
             void print() const;
             // ~SmartTeam();

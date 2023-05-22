@@ -25,17 +25,17 @@ namespace ariel{
     }   
     void Character::print(string kind) const{
         if (!this->isAlive()){
-            cout << kind << "(" << this->name << ")" << "(" << this->loc.getX << "," << this->loc.getY << ")"<< endl;
+            cout << kind << "(" << this->name << ")" << "(" << this->loc.getX() << "," << this->loc.getY() << ")"<< endl;
         }
         else{
-            cout << kind << this->name << this->health << "(" << this->loc.getX << "," << this->loc.getY << ")"<< endl;
+            cout << kind << this->name << this->health << "(" << this->loc.getX() << "," << this->loc.getY() << ")"<< endl;
         }
     }
-    Cowboy::Cowboy(string name, Point loc) : Character(name, loc){
+    Cowboy::Cowboy(string name, Point loc) : Character(name, loc, 110){
         this->bullets = 6;
     }
     void Cowboy::shoot(Character* other){
-        other.hit(10);
+        other->hit(10);
     }
     string Cowboy::print() const{
        return ""; 
@@ -46,50 +46,65 @@ namespace ariel{
     void Cowboy::reload(){
         this->bullets = 6;        
     }
-    YoungNinja::YoungNinja(string name, Point loc) : Character(name, loc){
+    YoungNinja::YoungNinja(string name, Point loc) : Character(name, loc, 100){
         this->speed = 14;
     }
     void YoungNinja::slash(Character* other){
         if (this->distance(other) <= 1){
-            other.hit(40);
+            other->hit(40);
         }
     }
     void YoungNinja::move(Character* other){
         if (this->distance(other) >= this->speed){
-            this->loc.moveTowards(this->loc, other.loc, this->speed);
+            this->loc.moveTowards(this->loc, other->getLocation(), this->speed);
         }
         else{
             // maybe delete original point
-            this->loc = Point(other.loc.getX(), other.loc.getY());
+            this->loc = Point(other->getLocation().getX(), other->getLocation().getY());
         }
     }
     void YoungNinja::print() const{
         this->Character::print("N");
     }
-    OldNinja::OldNinja(string name, Point loc) : Character(name, loc){
+    OldNinja::OldNinja(string name, Point loc) : Character(name, loc, 150){
         this->speed = 0;
     }
     void OldNinja::slash(Character* other){
-        
-        
+        if (this->distance(other) <= 1){
+            other->hit(40);
+        }   
     }
     void OldNinja::move(Character* other){
-        
+        if (this->distance(other) >= this->speed){
+            this->loc.moveTowards(this->loc, other->getLocation(), this->speed);
+        }
+        else{
+            // maybe delete original point
+            this->loc = Point(other->getLocation().getX(), other->getLocation().getY());
+        }
     }
     void OldNinja::print() const{
-        
+        this->Character::print("N");
     }
-    TrainedNinja::TrainedNinja(string name, Point loc) : Character(name, loc){
-        this->speed = 0;
+    TrainedNinja::TrainedNinja(string name, Point loc) : Character(name, loc, 120){
+        this->speed = 12;
     }
     void TrainedNinja::slash(Character* other){
-        
+        if (this->distance(other) <= 1){
+            other->hit(40);
+        } 
     }
     void TrainedNinja::move(Character* other){
-        
+        if (this->distance(other) >= this->speed){
+            this->loc.moveTowards(this->loc, other->getLocation(), this->speed);
+        }
+        else{
+            // maybe delete original point
+            this->loc = Point(other->getLocation().getX(), other->getLocation().getY());
+        }
     }
     void TrainedNinja::print() const{
-        
+        this->Character::print("N");
     }
 
 

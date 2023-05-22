@@ -8,18 +8,18 @@
 using namespace std;
 namespace ariel{
     class Character{
-        private:
+        protected:
             Point loc;
             string name;
             int health;
         public:
-            Character(string name, Point loc);
+            Character(string name, Point loc, int health);
             bool isAlive() const;
             double distance(Character* other) const;
             void hit(int dmg);
             string getName() const;
             Point getLocation() const;
-            void print() const;
+            void print(string kind) const;
     };
     class Cowboy : public Character{
         private:

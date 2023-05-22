@@ -12,7 +12,6 @@ namespace ariel{
     }
     void Point::print() const{
         cout << "(" << this->x_ax << "," << this->y_ax << ")" << endl;
-        
     }
     double Point::distance(Point other) const{
         return sqrt(pow(this->x_ax - other.x_ax, 2) +
