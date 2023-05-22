@@ -23,12 +23,12 @@ namespace ariel{
     Point Character::getLocation() const{
         return this->loc;
     }   
-    void Character::print(string kind) const{
+    void Character::print() const{
         if (!this->isAlive()){
-            cout << kind << "(" << this->name << ")" << "(" << this->loc.getX() << "," << this->loc.getY() << ")"<< endl;
+            cout << "c" << "(" << this->name << ")" << "(" << this->loc.getX() << "," << this->loc.getY() << ")"<< endl;
         }
         else{
-            cout << kind << this->name << this->health << "(" << this->loc.getX() << "," << this->loc.getY() << ")"<< endl;
+            cout << "c" << this->name << this->health << "(" << this->loc.getX() << "," << this->loc.getY() << ")"<< endl;
         }
     }
     Cowboy::Cowboy(string name, Point loc) : Character(name, loc, 110){
@@ -37,8 +37,13 @@ namespace ariel{
     void Cowboy::shoot(Character* other){
         other->hit(10);
     }
-    string Cowboy::print() const{
-       return ""; 
+    void Cowboy::print() const{
+       if (!this->isAlive()){
+            cout << "C" << "(" << this->name << ")" << "(" << this->loc.getX() << "," << this->loc.getY() << ")"<< endl;
+        }
+        else{
+            cout << "C" << this->name << this->health << "(" << this->loc.getX() << "," << this->loc.getY() << ")"<< endl;
+        } 
     }
     bool Cowboy::hasboolets(){
         return this->bullets > 0;
@@ -64,7 +69,12 @@ namespace ariel{
         }
     }
     void YoungNinja::print() const{
-        this->Character::print("N");
+        if (!this->isAlive()){
+            cout << "N" << "(" << this->name << ")" << "(" << this->loc.getX() << "," << this->loc.getY() << ")"<< endl;
+        }
+        else{
+            cout << "N" << this->name << this->health << "(" << this->loc.getX() << "," << this->loc.getY() << ")"<< endl;
+        }
     }
     OldNinja::OldNinja(string name, Point loc) : Character(name, loc, 150){
         this->speed = 0;
@@ -84,7 +94,12 @@ namespace ariel{
         }
     }
     void OldNinja::print() const{
-        this->Character::print("N");
+        if (!this->isAlive()){
+            cout << "N" << "(" << this->name << ")" << "(" << this->loc.getX() << "," << this->loc.getY() << ")"<< endl;
+        }
+        else{
+            cout << "N" << this->name << this->health << "(" << this->loc.getX() << "," << this->loc.getY() << ")"<< endl;
+        }
     }
     TrainedNinja::TrainedNinja(string name, Point loc) : Character(name, loc, 120){
         this->speed = 12;
@@ -104,7 +119,12 @@ namespace ariel{
         }
     }
     void TrainedNinja::print() const{
-        this->Character::print("N");
+        if (!this->isAlive()){
+            cout << "N" << "(" << this->name << ")" << "(" << this->loc.getX() << "," << this->loc.getY() << ")"<< endl;
+        }
+        else{
+            cout << "N" << this->name << this->health << "(" << this->loc.getX() << "," << this->loc.getY() << ")"<< endl;
+        }
     }
 
 

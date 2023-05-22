@@ -3,6 +3,7 @@
 #include <sstream>
 #include <stdexcept>
 #include <cassert>
+#include <bits/stdc++.h>
 #include "Point.hpp"
 using namespace std;
 namespace ariel{

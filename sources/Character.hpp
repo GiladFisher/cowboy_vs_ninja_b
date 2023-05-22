@@ -19,7 +19,7 @@ namespace ariel{
             void hit(int dmg);
             string getName() const;
             Point getLocation() const;
-            void print(string kind) const;
+            virtual void print() const;
     };
     class Cowboy : public Character{
         private:
@@ -27,7 +27,7 @@ namespace ariel{
         public:
             Cowboy(string name, Point loc);
             void shoot(Character* other); // 10 damage
-            string print() const;
+            void print() const;
             bool hasboolets();
             void reload(); // 6 bullets
     };

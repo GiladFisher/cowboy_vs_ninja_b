@@ -17,6 +17,12 @@ namespace ariel{
         
     // }
     void Team::add(Character* warrior){
+        for(int i = 0; i < 10; i++){
+            if(this->team[i] == nullptr){
+                this->team[i] = warrior;
+                return;
+            }
+        }
 
     }
     void Team::attack(Team* other){
@@ -26,10 +32,47 @@ namespace ariel{
         return 0;
     }
     void Team::print() const{
+        // first print the cowboys, then the ninjas
+
 
     }
     // Team::~Team(){
     //     delete[] this->team;
     // }
+    Team2::Team2(Character* leader) : Team(leader){
+    }
+    int Team2::stillAlive() const{
+        int alive = 0;
+        for(int i = 0; i < 10; i++){
+            if(this->team[i] != nullptr && this->team[i]->isAlive()){
+                alive++;
+            }
+        }
+        return alive;
+    }
+    void Team2::add(Character* warrior){
+        for(int i = 0; i < 10; i++){
+            if(this->team[i] == nullptr){
+                this->team[i] = warrior;
+                return;
+            }
+        }
+    }
+    void Team2::attack(Team* other){
+        for(int i = 0; i < 10; i++){
+            if(this->team[i] != nullptr && this->team[i]->isAlive()){
+                // this->team[i]->shoot(other->leader);// attack
+            }
+        }
+    }
+    void Team2::print() const{
+        cout << "Team2:" << endl;
+        for(int i = 0; i < 10; i++){
+            if(this->team[i] != nullptr){
+                this->team[i]->print();
+            }
+        }
+    }
+
 
 }
