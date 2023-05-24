@@ -88,6 +88,8 @@ namespace ariel{
         }
         if(closest != nullptr){
             this->team[0] = closest;
+            closest->setLeader();
+            this->leader->setLeader();
             this->team[index] = this->leader;
             this->leader = closest;
         }
