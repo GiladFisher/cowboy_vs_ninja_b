@@ -28,6 +28,9 @@ namespace ariel{
     bool Character::isLeader() const{
         return this->leader;
     }
+    void Character::attack(Character* other){
+
+    }
     void Character::setLeader(){
         this->leader = !this->leader;
     }
@@ -61,6 +64,7 @@ namespace ariel{
             other->hit(10);
             this->bullets--;
         }
+        
     }
     void Cowboy::print() const{
        if (!this->isAlive()){
@@ -69,6 +73,13 @@ namespace ariel{
         else{
             cout << "C" << this->name << this->health << "(" << this->loc.getX() << "," << this->loc.getY() << ")"<< endl;
         } 
+    }
+    void Cowboy::attack(Character* other){
+        if(!this->hasboolets()){
+            this->reload();
+            return;
+        }
+        this->shoot(other);
     }
     bool Cowboy::hasboolets(){
         return this->bullets > 0;
@@ -89,6 +100,19 @@ namespace ariel{
         if (this->distance(other) <= 1){
             other->hit(40);
         }
+    }
+    void YoungNinja::attack(Character* other){
+        if(!this->isAlive()){
+            throw std::runtime_error("dead");
+        }
+        if(!other->isAlive()){
+            throw std::runtime_error("dead");
+        }
+        if (this->distance(other) > 1){
+            this->move(other);
+            return;
+        }
+        this->slash(other);
     }
     void YoungNinja::move(Character* other){
         if (this->distance(other) >= this->speed){
@@ -120,6 +144,19 @@ namespace ariel{
         if (this->distance(other) <= 1){
             other->hit(40);
         }   
+    }
+    void OldNinja::attack(Character* other){
+        if(!this->isAlive()){
+            throw std::runtime_error("dead");
+        }
+        if(!other->isAlive()){
+            throw std::runtime_error("dead");
+        }
+        if (this->distance(other) > 1){
+            this->move(other);
+            return;
+        }
+        this->slash(other);
     }
     void OldNinja::move(Character* other){
         if (this->distance(other) >= this->speed){
@@ -160,6 +197,19 @@ namespace ariel{
             // maybe delete original point
             this->loc = Point(other->getLocation().getX(), other->getLocation().getY());
         }
+    }
+    void TrainedNinja::attack(Character* other){
+        if(!this->isAlive()){
+            throw std::runtime_error("dead");
+        }
+        if(!other->isAlive()){
+            throw std::runtime_error("dead");
+        }
+        if (this->distance(other) > 1){
+            this->move(other);
+            return;
+        }
+        this->slash(other);
     }
     void TrainedNinja::print() const{
         if (!this->isAlive()){

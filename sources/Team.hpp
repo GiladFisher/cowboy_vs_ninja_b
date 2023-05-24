@@ -22,6 +22,8 @@ namespace ariel{
             virtual void attack(Team* other);
             virtual int stillAlive() const;
             virtual void print() const;
+            void replaceLeader();
+            Character* choosePrey(Team* other);
             ~Team();
     };
     class Team2 : public Team{

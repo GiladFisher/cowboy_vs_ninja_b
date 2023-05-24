@@ -26,6 +26,7 @@ namespace ariel{
             string getName() const;
             Point getLocation() const;
             virtual void print() const;
+            virtual void attack(Character* other) ;
             ~Character();
     };
     class Cowboy : public Character{
@@ -37,6 +38,7 @@ namespace ariel{
             void print() const;
             bool hasboolets();
             void reload(); // 6 bullets
+            void attack(Character* other) ;
     };
     class YoungNinja : public Character{
         private:
@@ -46,6 +48,7 @@ namespace ariel{
             void slash(Character* other); // 40 damage
             void move(Character* other); // move towards other
             void print() const;
+            void attack(Character* other) ;
     };
     class OldNinja : public Character{
         private:
@@ -55,6 +58,7 @@ namespace ariel{
             void slash(Character* other); // 40 damage
             void move(Character* other); // move towards other
             void print() const;
+            void attack(Character* other);
     };
     class TrainedNinja : public Character{
         private:
@@ -64,5 +68,6 @@ namespace ariel{
             void slash(Character* other); // 40 damage
             void move(Character* other); // move towards other
             void print() const;
+            void attack(Character* other) ;
     };
 }

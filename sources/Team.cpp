@@ -3,6 +3,7 @@
 #include <sstream>
 #include <stdexcept>
 #include <cassert>
+#include <limits>
 #include "Team.hpp"
 using namespace std;
 namespace ariel{
@@ -15,10 +16,7 @@ namespace ariel{
         leader->setLeader();
         this->team[0] = leader;
     }
-    // Team::Team(const Team& other){
-    //     this->team = new Character*[10];
-    //     this->leader = other.leader;
-    // }
+    
     void Team::add(Character* warrior){
         if(warrior == nullptr){
             throw std::runtime_error("Character is null");
@@ -43,8 +41,55 @@ namespace ariel{
     void Team::attack(Team* other){
         if(other == nullptr){
             throw std::invalid_argument("Team is null");
+        }   
+        Character* prey = this->choosePrey(other);
+        for(unsigned int i = 0; i < this->team.size(); i++){
+            if(this->team[i] != nullptr && this->team[i]->isAlive()){
+                if(!prey->isAlive()){
+                    prey = this->choosePrey(other);
+                }
+                if(prey != nullptr){
+                    this->team[i]->attack(prey);
+                }
+                else{ // no more prey
+                    break;
+                }
+            }
         }
-        
+    }
+    Character* Team::choosePrey(Team* other){
+        Character* closest = nullptr;
+        unsigned int min_dis = std::numeric_limits<int>::max();
+        for(unsigned int i = 0; i < other->team.size(); i++){
+            if(this->team[i] != nullptr && this->team[i]->isAlive()){
+                unsigned int dis = this->team[i]->distance(this->leader);
+                if(dis < min_dis){
+                    min_dis = dis;
+                    closest = this->team[i];
+                }
+            }
+        }
+        return closest;
+    }
+    void Team::replaceLeader(){
+        Character* closest = nullptr;
+        unsigned int min_dis = std::numeric_limits<int>::max();
+        unsigned int index = 0;
+        for(unsigned int i = 0; i < this->team.size(); i++){
+            if(this->team[i] != nullptr && this->team[i]->isAlive()){
+                unsigned int dis = this->team[i]->distance(this->leader);
+                if(dis < min_dis){
+                    min_dis = dis;
+                    closest = this->team[i];
+                    index = i;
+                }
+            }
+        }
+        if(closest != nullptr){
+            this->team[0] = closest;
+            this->team[index] = this->leader;
+            this->leader = closest;
+        }
     }
     int Team::stillAlive() const{
         int alive = 0;
