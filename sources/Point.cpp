@@ -27,11 +27,14 @@ namespace ariel{
         if(dist < 0){
             throw invalid_argument("distance cannot be negative");
         }
+        if(dist >= src.distance(dst)){
+            return dst;
+        }
         Point distance(src.getX() - dst.getX(), src.getY() - dst.getY());
         double norm = sqrt(pow(distance.getX(), 2) + pow(distance.getY(), 2));
         Point direction(distance.getX() / norm, distance.getY() / norm);
-        return Point(src.getX() + direction.getX() * dist,
-                     src.getY() + direction.getY() * dist);
+        return Point(src.getX() + distance.getX() * dist / norm,
+                     src.getY() + distance.getY() * dist / norm);
     }
     
 
