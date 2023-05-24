@@ -14,7 +14,8 @@ namespace ariel{
         this->team.reserve(MAX_TEAM_SIZE);
         this->leader = leader;
         leader->setLeader();
-        this->team[0] = leader;
+        // this->team[0] = leader;
+        this->team.push_back(leader);
     }
     
     void Team::add(Character* warrior){
@@ -98,7 +99,7 @@ namespace ariel{
                 alive++;
             }
         }
-        return alive + 1;
+        return alive;
     }
     void Team::print() const{
     }
@@ -114,7 +115,7 @@ namespace ariel{
                 alive++;
             }
         }
-        return alive + 1;
+        return alive;
     }
     void Team2::add(Character* warrior){
         if(warrior == nullptr){

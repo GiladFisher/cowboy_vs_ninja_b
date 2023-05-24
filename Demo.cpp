@@ -33,14 +33,23 @@ int main() {
    cout << " sushi slashed tom" << endl;
 
    Team team_A(tom); 
+
    cout << "team_A created" << endl;
+   // team_A.team[0]->print();
+   cout << team_A.team.size() << endl;
    team_A.add(new YoungNinja("Yogi", Point(64,57)));
    cout << "Yogi added to team_A" << endl;
-
+   cout << team_A.team.size() << endl;
+   // team_A.team[0]->print();
     // Team b(tom); should throw tom is already in team a
 
      Team team_B(sushi);
      team_B.add(new TrainedNinja("Hikari", Point(12,81)));
+
+     for(unsigned int i=0; i<team_A.team.size(); i++){
+         cout << i << endl;
+         team_A.team[i]->print();
+     }
 
    cout << "entering while" << endl;
      while(team_A.stillAlive() > 0 && team_B.stillAlive() > 0){
