@@ -13,7 +13,10 @@ namespace ariel{
             string name;
             int health;
             bool leader;
+            bool inteam;
         public:
+            bool isInTeam() const;
+            void setInTeam();
             bool isLeader() const;
             void setLeader();
             Character(string name, Point loc, int health);

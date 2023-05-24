@@ -7,11 +7,14 @@
 using namespace std;
 namespace ariel{
     Team::Team(Character* leader){
-        // this->team.reserve(MAX_TEAM_SIZE);
+        if(leader->isLeader()){
+            throw std::runtime_error("Character is already a leader");
+        }
+        this->team.reserve(MAX_TEAM_SIZE);
 
         this->leader = leader;
         leader->setLeader();
-        this->team.push_back(leader);
+        this->team[0] = leader;
     }
     // Team::Team(const Team& other){
     //     this->team = new Character*[10];
@@ -27,7 +30,7 @@ namespace ariel{
         if(warrior->isLeader()){
             throw std::runtime_error("Character is already a leader");
         }
-        for(unsigned int i = 0; i < MAX_TEAM_SIZE; i++){
+        for(unsigned int i = 0; i < team.size(); i++){
             if(this->team[i] == warrior){
                 throw std::runtime_error("Character already in team");
             }
@@ -39,7 +42,7 @@ namespace ariel{
     }
     int Team::stillAlive() const{
         int alive = 0;
-        for(unsigned int i = 0; i < MAX_TEAM_SIZE ; i++){
+        for(unsigned int i = 0; i < team.size() ; i++){
             if(this->team[i] != nullptr && this->team[i]->isAlive()){
                 alive++;
             }
@@ -54,7 +57,7 @@ namespace ariel{
                 delete this->team[i];
             }
         }
-        team.clear();
+        // team.clear();
 
     }
     Team2::Team2(Character* leader) : Team(leader){
@@ -62,7 +65,7 @@ namespace ariel{
     }
     int Team2::stillAlive() const{
         int alive = 0;
-        for(unsigned int i = 0; i < MAX_TEAM_SIZE ; i++){
+        for(unsigned int i = 0; i < team.size() ; i++){
             if(this->team[i] != nullptr && this->team[i]->isAlive()){
                 alive++;
             }
@@ -79,12 +82,11 @@ namespace ariel{
         if(warrior->isLeader()){
             throw std::runtime_error("Character is already a leader");
         }
-        for(unsigned int i = 0; i < MAX_TEAM_SIZE; i++){
-            if(this->team[i] == warrior){
-                throw std::runtime_error("Character already in team");
-            }
+        if(warrior->isInTeam()){
+            throw std::runtime_error("Character already in team");
         }
         this->team.push_back(warrior);
+        warrior->setInTeam();
     }
     void Team2::attack(Team* other){
         for(unsigned int i = 0; i < 10; i++){
@@ -100,5 +102,14 @@ namespace ariel{
                 this->team[i]->print();
             }
         }
+    }
+    Team2::~Team2(){
+        // for(unsigned int i = 0; i < this->team.size(); i++){
+        //     if(this->team[i] != nullptr){
+        //         delete this->team[i];
+        //     }
+        // }
+
+        // team.clear();
     }
 }

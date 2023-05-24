@@ -7,6 +7,8 @@
 using namespace std;
 namespace ariel{
     Character::Character(string name, Point loc, int health): name(name), loc(loc), health(health){
+        this->leader = false;
+        this->inteam = false;
     }
     bool Character::isAlive() const{
         return this->health > 0;
@@ -36,6 +38,12 @@ namespace ariel{
         else{
             cout << "c" << this->name << this->health << "(" << this->loc.getX() << "," << this->loc.getY() << ")"<< endl;
         }
+    }
+    bool Character::isInTeam() const{
+        return this->inteam;
+    }
+    void Character::setInTeam(){
+        this->inteam = !this->inteam;
     }
     Character::~Character(){
     }

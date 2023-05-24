@@ -34,7 +34,7 @@ namespace ariel{
             void attack(Team* other);
             int stillAlive() const;
             void print() const;
-            // ~Team2();
+            ~Team2();
     };
     class SmartTeam : public Team{
         private:
