@@ -23,6 +23,12 @@ namespace ariel{
     Point Character::getLocation() const{
         return this->loc;
     }   
+    bool Character::isLeader() const{
+        return this->leader;
+    }
+    void Character::setLeader(){
+        this->leader = !this->leader;
+    }
     void Character::print() const{
         if (!this->isAlive()){
             cout << "c" << "(" << this->name << ")" << "(" << this->loc.getX() << "," << this->loc.getY() << ")"<< endl;
@@ -30,6 +36,8 @@ namespace ariel{
         else{
             cout << "c" << this->name << this->health << "(" << this->loc.getX() << "," << this->loc.getY() << ")"<< endl;
         }
+    }
+    Character::~Character(){
     }
     Cowboy::Cowboy(string name, Point loc) : Character(name, loc, 110){
         this->bullets = 6;

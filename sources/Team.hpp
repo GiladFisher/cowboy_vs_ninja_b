@@ -3,17 +3,18 @@
 #include <sstream>
 #include <stdexcept>
 #include <cassert>
+#include <vector>
 #include "Character.hpp"
 
 using namespace std;
-
+const int MAX_TEAM_SIZE = 10;
 namespace ariel{
     class Team{// a team of up to 10 characters
         protected:
             // Character** team;
             // Character* leader;
         public:
-            Character** team;
+            vector<Character*> team;
             Character* leader;
             Team(Character* leader);
             // Team(const Team& other);
@@ -21,7 +22,7 @@ namespace ariel{
             virtual void attack(Team* other);
             virtual int stillAlive() const;
             virtual void print() const;
-            // ~Team();
+            ~Team();
     };
     class Team2 : public Team{
         private:

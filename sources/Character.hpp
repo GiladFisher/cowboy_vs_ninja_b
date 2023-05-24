@@ -12,7 +12,10 @@ namespace ariel{
             Point loc;
             string name;
             int health;
+            bool leader;
         public:
+            bool isLeader() const;
+            void setLeader();
             Character(string name, Point loc, int health);
             bool isAlive() const;
             double distance(Character* other) const;
@@ -20,6 +23,7 @@ namespace ariel{
             string getName() const;
             Point getLocation() const;
             virtual void print() const;
+            ~Character();
     };
     class Cowboy : public Character{
         private:

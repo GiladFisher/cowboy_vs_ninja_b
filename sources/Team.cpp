@@ -7,43 +7,62 @@
 using namespace std;
 namespace ariel{
     Team::Team(Character* leader){
-        this->team = new Character*[10];
+        // this->team.reserve(MAX_TEAM_SIZE);
+
         this->leader = leader;
-        this->team[0] = leader;
+        leader->setLeader();
+        this->team.push_back(leader);
     }
     // Team::Team(const Team& other){
     //     this->team = new Character*[10];
     //     this->leader = other.leader;
-        
     // }
     void Team::add(Character* warrior){
-        for(int i = 0; i < 10; i++){
-            if(this->team[i] == nullptr){
-                this->team[i] = warrior;
-                return;
+        if(warrior == nullptr){
+            throw std::runtime_error("Character is null");
+        }
+        if(this->team.size() == MAX_TEAM_SIZE){
+            throw std::runtime_error("Team is full");
+        }
+        if(warrior->isLeader()){
+            throw std::runtime_error("Character is already a leader");
+        }
+        for(unsigned int i = 0; i < MAX_TEAM_SIZE; i++){
+            if(this->team[i] == warrior){
+                throw std::runtime_error("Character already in team");
             }
         }
-
+        this->team.push_back(warrior);
     }
     void Team::attack(Team* other){
-
+        
     }
     int Team::stillAlive() const{
-        return 0;
+        int alive = 0;
+        for(unsigned int i = 0; i < MAX_TEAM_SIZE ; i++){
+            if(this->team[i] != nullptr && this->team[i]->isAlive()){
+                alive++;
+            }
+        }
+        return alive;
     }
     void Team::print() const{
-        // first print the cowboys, then the ninjas
-
+    }
+    Team::~Team(){
+        for(unsigned int i = 0; i < this->team.size(); i++){
+            if(this->team[i] != nullptr){
+                delete this->team[i];
+            }
+        }
+        team.clear();
 
     }
-    // Team::~Team(){
-    //     delete[] this->team;
-    // }
     Team2::Team2(Character* leader) : Team(leader){
+        
     }
     int Team2::stillAlive() const{
         int alive = 0;
-        for(int i = 0; i < 10; i++){
+        for(unsigned int i = 0; i < MAX_TEAM_SIZE ; i++){
             if(this->team[i] != nullptr && this->team[i]->isAlive()){
                 alive++;
             }
@@ -51,28 +70,35 @@ namespace ariel{
         return alive;
     }
     void Team2::add(Character* warrior){
-        for(int i = 0; i < 10; i++){
-            if(this->team[i] == nullptr){
-                this->team[i] = warrior;
-                return;
+        if(warrior == nullptr){
+            throw std::runtime_error("Character is null");
+        }
+        if(this->team.size() == MAX_TEAM_SIZE){
+            throw std::runtime_error("Team is full");
+        }
+        if(warrior->isLeader()){
+            throw std::runtime_error("Character is already a leader");
+        }
+        for(unsigned int i = 0; i < MAX_TEAM_SIZE; i++){
+            if(this->team[i] == warrior){
+                throw std::runtime_error("Character already in team");
             }
         }
+        this->team.push_back(warrior);
     }
     void Team2::attack(Team* other){
-        for(int i = 0; i < 10; i++){
+        for(unsigned int i = 0; i < 10; i++){
             if(this->team[i] != nullptr && this->team[i]->isAlive()){
-                // this->team[i]->shoot(other->leader);// attack
+                // attack
             }
         }
     }
     void Team2::print() const{
         cout << "Team2:" << endl;
-        for(int i = 0; i < 10; i++){
+        for(unsigned int i = 0; i < 10; i++){
             if(this->team[i] != nullptr){
                 this->team[i]->print();
             }
         }
     }
-
-
 }
