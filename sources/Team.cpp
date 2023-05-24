@@ -11,7 +11,6 @@ namespace ariel{
             throw std::runtime_error("Character is already a leader");
         }
         this->team.reserve(MAX_TEAM_SIZE);
-
         this->leader = leader;
         leader->setLeader();
         this->team[0] = leader;
@@ -30,35 +29,35 @@ namespace ariel{
         if(warrior->isLeader()){
             throw std::runtime_error("Character is already a leader");
         }
+        if(warrior->isInTeam()){
+            throw std::runtime_error("Character already in team");
+        }
         for(unsigned int i = 0; i < team.size(); i++){
             if(this->team[i] == warrior){
                 throw std::runtime_error("Character already in team");
             }
         }
         this->team.push_back(warrior);
+        warrior->setInTeam();
     }
     void Team::attack(Team* other){
+        if(other == nullptr){
+            throw std::invalid_argument("Team is null");
+        }
         
     }
     int Team::stillAlive() const{
         int alive = 0;
-        for(unsigned int i = 0; i < team.size() ; i++){
-            if(this->team[i] != nullptr && this->team[i]->isAlive()){
+        for(unsigned int i = 0; i < team.size(); i++){
+            if(this->team[i]->isAlive()){
                 alive++;
             }
         }
-        return alive;
+        return alive + 1;
     }
     void Team::print() const{
     }
     Team::~Team(){
-        for(unsigned int i = 0; i < this->team.size(); i++){
-            if(this->team[i] != nullptr){
-                delete this->team[i];
-            }
-        }
-        // team.clear();
-
     }
     Team2::Team2(Character* leader) : Team(leader){
         
@@ -70,7 +69,7 @@ namespace ariel{
                 alive++;
             }
         }
-        return alive;
+        return alive + 1;
     }
     void Team2::add(Character* warrior){
         if(warrior == nullptr){
@@ -104,12 +103,6 @@ namespace ariel{
         }
     }
     Team2::~Team2(){
-        // for(unsigned int i = 0; i < this->team.size(); i++){
-        //     if(this->team[i] != nullptr){
-        //         delete this->team[i];
-        //     }
-        // }
-
-        // team.clear();
+        
     }
 }

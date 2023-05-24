@@ -51,7 +51,16 @@ namespace ariel{
         this->bullets = 6;
     }
     void Cowboy::shoot(Character* other){
-        other->hit(10);
+        if(!this->isAlive()){
+            throw std::runtime_error("dead");
+        }
+        if(!other->isAlive()){
+            throw std::runtime_error("dead");
+        }
+        if(this->hasboolets()){
+            other->hit(10);
+            this->bullets--;
+        }
     }
     void Cowboy::print() const{
        if (!this->isAlive()){
@@ -71,6 +80,12 @@ namespace ariel{
         this->speed = 14;
     }
     void YoungNinja::slash(Character* other){
+        if(!this->isAlive()){
+            throw std::runtime_error("dead");
+        }
+        if(!other->isAlive()){
+            throw std::runtime_error("dead");
+        }
         if (this->distance(other) <= 1){
             other->hit(40);
         }
@@ -96,6 +111,12 @@ namespace ariel{
         this->speed = 0;
     }
     void OldNinja::slash(Character* other){
+        if(!this->isAlive()){
+            throw std::runtime_error("dead");
+        }
+        if(!other->isAlive()){
+            throw std::runtime_error("dead");
+        }
         if (this->distance(other) <= 1){
             other->hit(40);
         }   
@@ -121,6 +142,12 @@ namespace ariel{
         this->speed = 12;
     }
     void TrainedNinja::slash(Character* other){
+        if(!this->isAlive()){
+            throw std::runtime_error("dead");
+        }
+        if(!other->isAlive()){
+            throw std::runtime_error("dead");
+        }
         if (this->distance(other) <= 1){
             other->hit(40);
         } 
