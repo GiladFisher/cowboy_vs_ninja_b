@@ -25,7 +25,7 @@ namespace ariel{
             void hit(int dmg);
             string getName() const;
             Point getLocation() const;
-            virtual void print() const;
+            virtual string print() const;
             virtual void attack(Character* other) ;
             ~Character();
     };
@@ -35,7 +35,7 @@ namespace ariel{
         public:
             Cowboy(string name, Point loc);
             void shoot(Character* other); // 10 damage
-            void print() const override;
+            string print() const override;
             bool hasboolets();
             void reload(); // 6 bullets
             void attack(Character* other) override;
@@ -47,7 +47,7 @@ namespace ariel{
             YoungNinja(string name, Point loc);
             void slash(Character* other); // 40 damage
             void move(Character* other); // move towards other
-            void print() const override;
+            string print() const override;
             void attack(Character* other) override;
     };
     class OldNinja : public Character{
@@ -57,7 +57,7 @@ namespace ariel{
             OldNinja(string name, Point loc);
             void slash(Character* other); // 40 damage
             void move(Character* other); // move towards other
-            void print() const override;
+            string print() const override;
             void attack(Character* other) override;
     };
     class TrainedNinja : public Character{
@@ -67,7 +67,7 @@ namespace ariel{
             TrainedNinja(string name, Point loc);
             void slash(Character* other); // 40 damage
             void move(Character* other); // move towards other
-            void print() const override;
+            string print() const override;
             void attack(Character* other) override;
     };
 }

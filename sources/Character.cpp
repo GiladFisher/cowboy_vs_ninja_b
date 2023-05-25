@@ -37,12 +37,14 @@ namespace ariel{
     void Character::setLeader(){
         this->leader = !this->leader;
     }
-    void Character::print() const{
+    string Character::print() const{
         if (!this->isAlive()){
             cout << "c" << "(" << this->name << ")" << "(" << this->loc.getX() << "," << this->loc.getY() << ")"<< endl;
+            return "c";
         }
         else{
             cout << "c" << this->name << this->health << "(" << this->loc.getX() << "," << this->loc.getY() << ")"<< endl;
+            return "c";
         }
     }
     bool Character::isInTeam() const{
@@ -72,13 +74,17 @@ namespace ariel{
         }
         
     }
-    void Cowboy::print() const{
+    string Cowboy::print() const{
        if (!this->isAlive()){
             cout << "C" << "(" << this->name << ")" << "(" << this->loc.getX() << "," << this->loc.getY() << ")"<< endl;
+            return "C" + this->name + "(" + to_string(this->loc.getX()) + "," + to_string(this->loc.getY()) + ")";
+
         }
         else{
             cout << "C" << this->name << this->health << "(" << this->loc.getX() << "," << this->loc.getY() << ")"<< endl;
+            return "C" + this->name + to_string(this->health) + "(" + to_string(this->loc.getX()) + "," + to_string(this->loc.getY()) + ")";
         } 
+
     }
     void Cowboy::attack(Character* other){
         if(!this->hasboolets()){
@@ -138,12 +144,14 @@ namespace ariel{
             this->loc = Point(other->getLocation().getX(), other->getLocation().getY());
         }
     }
-    void YoungNinja::print() const{
+    string YoungNinja::print() const{
         if (!this->isAlive()){
             cout << "N" << "(" << this->name << ")" << "(" << this->loc.getX() << "," << this->loc.getY() << ")"<< endl;
+            return "N" + this->name + "(" + to_string(this->loc.getX()) + "," + to_string(this->loc.getY()) + ")";
         }
         else{
             cout << "N" << this->name << this->health << "(" << this->loc.getX() << "," << this->loc.getY() << ")"<< endl;
+            return "N" + this->name + to_string(this->health) + "(" + to_string(this->loc.getX()) + "," + to_string(this->loc.getY()) + ")";
         }
     }
     OldNinja::OldNinja(string name, Point loc) : Character(name, loc, 150){
@@ -185,12 +193,14 @@ namespace ariel{
             this->loc = Point(other->getLocation().getX(), other->getLocation().getY());
         }
     }
-    void OldNinja::print() const{
+    string OldNinja::print() const{
         if (!this->isAlive()){
             cout << "N" << "(" << this->name << ")" << "(" << this->loc.getX() << "," << this->loc.getY() << ")"<< endl;
+            return "N" + this->name + to_string(this->health) + "(" + "," + ")" ;
         }
         else{
             cout << "N" << this->name << this->health << "(" << this->loc.getX() << "," << this->loc.getY() << ")"<< endl;
+            return "N" + this->name + to_string(this->health) + "(" + "," + ")" ;
         }
     }
     TrainedNinja::TrainedNinja(string name, Point loc) : Character(name, loc, 120){
@@ -232,12 +242,15 @@ namespace ariel{
         }
         this->slash(other);
     }
-    void TrainedNinja::print() const{
+    string TrainedNinja::print() const{
         if (!this->isAlive()){
             cout << "N" << "(" << this->name << ")" << "(" << this->loc.getX() << "," << this->loc.getY() << ")"<< endl;
+            return "N" + this->name + "(" +  "," +  ")";
         }
         else{
             cout << "N" << this->name << this->health << "(" << this->loc.getX() << "," << this->loc.getY() << ")"<< endl;
+            return "N" + this->name + to_string(this->health) + "(" + ")";
+
         }
     }
 
