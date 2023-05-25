@@ -17,6 +17,9 @@ namespace ariel{
         return this->loc.distance(other->loc);
     }
     void Character::hit(int dmg){
+        if(dmg < 0){
+            throw std::invalid_argument("negative damage");
+        }
         this->health -= dmg;        
     }   
     string Character::getName() const{
@@ -54,6 +57,9 @@ namespace ariel{
         this->bullets = 6;
     }
     void Cowboy::shoot(Character* other){
+        if(this == other){
+            throw std::runtime_error("same");
+        }
         if(!this->isAlive()){
             throw std::runtime_error("dead");
         }
@@ -85,6 +91,9 @@ namespace ariel{
         return this->bullets > 0;
     }
     void Cowboy::reload(){
+        if(!this->isAlive()){
+            throw std::runtime_error("dead");
+        }
         this->bullets = 6;        
     }
     YoungNinja::YoungNinja(string name, Point loc) : Character(name, loc, 100){
@@ -97,11 +106,17 @@ namespace ariel{
         if(!other->isAlive()){
             throw std::runtime_error("dead");
         }
+        if(this == other){
+            throw std::runtime_error("same");
+        }
         if (this->distance(other) <= 1){
             other->hit(40);
         }
     }
     void YoungNinja::attack(Character* other){
+        if(this == other){
+            throw std::runtime_error("same");
+        }
         if(!this->isAlive()){
             throw std::runtime_error("dead");
         }
@@ -116,7 +131,7 @@ namespace ariel{
     }
     void YoungNinja::move(Character* other){
         if (this->distance(other) >= this->speed){
-            this->loc.moveTowards(this->loc, other->getLocation(), this->speed);
+            this->loc = this->loc.moveTowards(this->loc, other->getLocation(), this->speed);
         }
         else{
             // maybe delete original point
@@ -132,9 +147,12 @@ namespace ariel{
         }
     }
     OldNinja::OldNinja(string name, Point loc) : Character(name, loc, 150){
-        this->speed = 0;
+        this->speed = 8;
     }
     void OldNinja::slash(Character* other){
+        if(this == other){
+            throw std::runtime_error("same");
+        }
         if(!this->isAlive()){
             throw std::runtime_error("dead");
         }
@@ -160,7 +178,7 @@ namespace ariel{
     }
     void OldNinja::move(Character* other){
         if (this->distance(other) >= this->speed){
-            this->loc.moveTowards(this->loc, other->getLocation(), this->speed);
+            this->loc = this->loc.moveTowards(this->loc, other->getLocation(), this->speed);
         }
         else{
             // maybe delete original point
@@ -179,6 +197,9 @@ namespace ariel{
         this->speed = 12;
     }
     void TrainedNinja::slash(Character* other){
+        if(other == this){
+            throw std::runtime_error("self harm hotline *4435");
+        }
         if(!this->isAlive()){
             throw std::runtime_error("dead");
         }
@@ -191,7 +212,7 @@ namespace ariel{
     }
     void TrainedNinja::move(Character* other){
         if (this->distance(other) >= this->speed){
-            this->loc.moveTowards(this->loc, other->getLocation(), this->speed);
+            this->loc = this->loc.moveTowards(this->loc, other->getLocation(), this->speed);
         }
         else{
             // maybe delete original point

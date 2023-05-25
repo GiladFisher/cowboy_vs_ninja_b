@@ -24,7 +24,8 @@ namespace ariel{
             virtual void print() const;
             void replaceLeader();
             Character* choosePrey(Team* other);
-            ~Team();
+            bool isAlive() const;
+            virtual ~Team();
     };
     class Team2 : public Team{
         private:
@@ -32,11 +33,11 @@ namespace ariel{
             // Character* leader;
         public:
             Team2(Character* leader);
-            void add(Character* warrior);
-            void attack(Team* other);
-            int stillAlive() const;
-            void print() const;
-            ~Team2();
+            void add(Character* warrior) override;
+            void attack(Team* other) override;
+            int stillAlive() const override;
+            void print() const override;
+            ~Team2() override;
     };
     class SmartTeam : public Team{
         private:
@@ -44,11 +45,11 @@ namespace ariel{
             // Character* leader;
         public:
             SmartTeam(Character* leader);
-            void add(Character* warrior);
-            void attack(Team* other);
-            int stillAlive() const;
-            void print() const;
-            // ~SmartTeam();
+            void add(Character* warrior) override;
+            void attack(Team* other) override;
+            int stillAlive() const override;
+            // void print() override const;
+            ~SmartTeam() override;
     };
 }
     

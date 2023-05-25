@@ -45,6 +45,7 @@ namespace ariel{
         }   
         Character* prey = this->choosePrey(other);
         for(unsigned int i = 0; i < this->team.size(); i++){
+            prey = this->choosePrey(other);
             if(this->team[i] != nullptr && this->team[i]->isAlive()){
                 if(!prey->isAlive()){
                     prey = this->choosePrey(other);
@@ -63,6 +64,10 @@ namespace ariel{
         unsigned int min_dis = std::numeric_limits<int>::max();
         for(unsigned int i = 0; i < other->team.size(); i++){
             if(this->team[i] != nullptr && this->team[i]->isAlive()){
+                Cowboy* cowb = dynamic_cast<Cowboy*>(other->team[i]);
+                if(!cowb){ // not a cowboy
+                    continue;
+                }
                 unsigned int dis = this->team[i]->distance(this->leader);
                 if(dis < min_dis){
                     min_dis = dis;
@@ -70,6 +75,20 @@ namespace ariel{
                 }
             }
         }
+        for(unsigned int i = 0; i < other->team.size(); i++){
+            if(this->team[i] != nullptr && this->team[i]->isAlive()){
+                Cowboy* cowb = dynamic_cast<Cowboy*>(other->team[i]);
+                if(cowb){ // is a cowboy
+                    continue;
+                }
+                unsigned int dis = this->team[i]->distance(this->leader);
+                if(dis < min_dis){
+                    min_dis = dis;
+                    closest = this->team[i];
+                }
+            }
+        }
+
         return closest;
     }
     void Team::replaceLeader(){
@@ -78,6 +97,24 @@ namespace ariel{
         unsigned int index = 0;
         for(unsigned int i = 0; i < this->team.size(); i++){
             if(this->team[i] != nullptr && this->team[i]->isAlive()){
+                Cowboy* cowb = dynamic_cast<Cowboy*>(this->team[i]);
+                if(!cowb){ // not a cowboy
+                    continue;
+                }
+                unsigned int dis = this->team[i]->distance(this->leader);
+                if(dis < min_dis){
+                    min_dis = dis;
+                    closest = this->team[i];
+                    index = i;
+                }
+            }
+        }
+        for(unsigned int i = 0; i < this->team.size(); i++){
+            if(this->team[i] != nullptr && this->team[i]->isAlive()){
+                Cowboy* cowb = dynamic_cast<Cowboy*>(this->team[i]);
+                if(cowb){ // is a cowboy
+                    continue;
+                }
                 unsigned int dis = this->team[i]->distance(this->leader);
                 if(dis < min_dis){
                     min_dis = dis;
@@ -104,6 +141,9 @@ namespace ariel{
         return alive;
     }
     void Team::print() const{
+    }
+    bool Team::isAlive() const{
+        return this->stillAlive() > 0;
     }
     Team::~Team(){
     }
@@ -136,9 +176,22 @@ namespace ariel{
         warrior->setInTeam();
     }
     void Team2::attack(Team* other){
-        for(unsigned int i = 0; i < 10; i++){
+        if(other == nullptr){
+            throw std::invalid_argument("Team is null");
+        }  
+        Character* prey = this->choosePrey(other);
+        for(unsigned int i = 0; i < this->team.size(); i++){
             if(this->team[i] != nullptr && this->team[i]->isAlive()){
-                // attack
+                prey = this->choosePrey(other);
+                if(!prey->isAlive()){
+                    prey = this->choosePrey(other);
+                }
+                if(prey != nullptr){
+                    this->team[i]->attack(prey);
+                }
+                else{ // no more prey
+                    break;
+                }
             }
         }
     }
@@ -151,6 +204,9 @@ namespace ariel{
         }
     }
     Team2::~Team2(){
+        
+    }
+    SmartTeam::~SmartTeam(){
         
     }
 }
