@@ -47,9 +47,9 @@ namespace ariel{
         for(unsigned int i = 0; i < this->team.size(); i++){
             prey = this->choosePrey(other);
             if(this->team[i] != nullptr && this->team[i]->isAlive()){
-                if(!prey->isAlive()){
-                    prey = this->choosePrey(other);
-                }
+                // if(!prey->isAlive()){
+                //     prey = this->choosePrey(other);
+                // }
                 if(prey != nullptr){
                     this->team[i]->attack(prey);
                 }
@@ -63,28 +63,28 @@ namespace ariel{
         Character* closest = nullptr;
         unsigned int min_dis = std::numeric_limits<int>::max();
         for(unsigned int i = 0; i < other->team.size(); i++){
-            if(this->team[i] != nullptr && this->team[i]->isAlive()){
+            if(other->team[i] != nullptr && other->team[i]->isAlive()){
                 Cowboy* cowb = dynamic_cast<Cowboy*>(other->team[i]);
                 if(!cowb){ // not a cowboy
                     continue;
                 }
-                unsigned int dis = this->team[i]->distance(this->leader);
+                unsigned int dis = other->team[i]->distance(this->leader);
                 if(dis < min_dis){
                     min_dis = dis;
-                    closest = this->team[i];
+                    closest = other->team[i];
                 }
             }
         }
         for(unsigned int i = 0; i < other->team.size(); i++){
-            if(this->team[i] != nullptr && this->team[i]->isAlive()){
+            if(other->team[i] != nullptr && other->team[i]->isAlive()){
                 Cowboy* cowb = dynamic_cast<Cowboy*>(other->team[i]);
                 if(cowb){ // is a cowboy
                     continue;
                 }
-                unsigned int dis = this->team[i]->distance(this->leader);
+                unsigned int dis = other->team[i]->distance(this->leader);
                 if(dis < min_dis){
                     min_dis = dis;
-                    closest = this->team[i];
+                    closest = other->team[i];
                 }
             }
         }
@@ -194,6 +194,20 @@ namespace ariel{
                 }
             }
         }
+    }
+    Character* Team2::choosePrey(Team* other){
+        Character* closest = nullptr;
+        unsigned int min_dis = std::numeric_limits<int>::max();
+        for(unsigned int i = 0; i < other->team.size(); i++){
+            if(other->team[i] != nullptr && other->team[i]->isAlive()){
+                unsigned int dis = other->team[i]->distance(this->leader);
+                if(dis < min_dis){
+                    min_dis = dis;
+                    closest = other->team[i];
+                }
+            }
+        }
+        return closest;
     }
     void Team2::print() const{
         cout << "Team2:" << endl;

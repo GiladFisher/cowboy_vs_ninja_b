@@ -23,7 +23,7 @@ namespace ariel{
             virtual int stillAlive() const;
             virtual void print() const;
             void replaceLeader();
-            Character* choosePrey(Team* other);
+            virtual Character* choosePrey(Team* other);
             bool isAlive() const;
             virtual ~Team();
     };
@@ -37,6 +37,7 @@ namespace ariel{
             void attack(Team* other) override;
             int stillAlive() const override;
             void print() const override;
+            Character* choosePrey(Team* other) override;
             ~Team2() override;
     };
     class SmartTeam : public Team{
